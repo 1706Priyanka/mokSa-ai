@@ -1,0 +1,40 @@
+.board {
+    padding: 20px;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+  }
+  
+  .board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .board-header h1 {
+    margin: 0;
+    color: #333;
+  }
+  
+  .add-column-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+  
+  .add-column-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .columns-container {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 20px;
+    min-height: calc(100vh - 100px);
+  } 
