@@ -67,7 +67,7 @@ const Board = () => {
   return (
     <div className="board">
       <div className="board-header">
-        <h1>Task Management Board</h1>
+        <h2>Task Management Board</h2>
         <button onClick={addColumn} className="add-column-btn">
           Add Column
         </button>
