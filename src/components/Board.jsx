@@ -1,22 +1,71 @@
-import Column from "./Column";
-import { useState } from "react";
+import { useState, useEffect } from 'react';
+import Column from './Column';
 import '../styles/Board.css';
 
-function Board (){
-const [columns, setColumns] = useState([]);
+const Board = () => {
+  const [columns, setColumns] = useState(() => {
+    const savedColumns = localStorage.getItem('columns');
+    return savedColumns ? JSON.parse(savedColumns) : [
+      { id: 1, title: 'To Do', tasks: [] },
+      { id: 2, title: 'In Progress', tasks: [] },
+      { id: 3, title: 'Done', tasks: [] }
+    ];
+  });
 
-function addColumn(){
+  useEffect(() => {
+    localStorage.setItem('columns', JSON.stringify(columns));
+  }, [columns]);
+
+  const addColumn = () => {
     const newColumn = {
-        id: Date.now(),
-        title: "New Column",
-        tasks: [],
+      id: Date.now(),
+      title: 'New Column',
+      tasks: []
     };
     setColumns([...columns, newColumn]);
-}
+  };
 
-    return(
-        <>
-        <div className="board">
+  const updateColumnTitle = (columnId, newTitle) => {
+    setColumns(columns.map(col => 
+      col.id === columnId ? { ...col, title: newTitle } : col
+    ));
+  };
+
+  const addTask = (columnId, task) => {
+    setColumns(columns.map(col => 
+      col.id === columnId 
+        ? { ...col, tasks: [...col.tasks, { ...task, id: Date.now() }] }
+        : col
+    ));
+  };
+
+  const moveTask = (taskId, sourceColumnId, targetColumnId) => {
+    const sourceColumn = columns.find(col => col.id === sourceColumnId);
+    const task = sourceColumn.tasks.find(t => t.id === taskId);
+
+    setColumns(columns.map(col => {
+      if (col.id === sourceColumnId) {
+        return {
+          ...col,
+          tasks: col.tasks.filter(t => t.id !== taskId)
+        };
+      }
+      if (col.id === targetColumnId) {
+        return {
+          ...col,
+          tasks: [...col.tasks, task]
+        };
+      }
+      return col;
+    }));
+  };
+
+  const deleteColumn = (columnId) => {
+    setColumns(columns.filter(col => col.id !== columnId));
+  };
+
+  return (
+    <div className="board">
       <div className="board-header">
         <h1>Task Management Board</h1>
         <button onClick={addColumn} className="add-column-btn">
@@ -24,10 +73,20 @@ function addColumn(){
         </button>
       </div>
       <div className="columns-container">
-       <Column />
+        {columns.map(column => (
+          <Column
+            key={column.id}
+            column={column}
+            onUpdateTitle={updateColumnTitle}
+            onAddTask={addTask}
+            onMoveTask={moveTask}
+            onDeleteColumn={deleteColumn}
+            columns={columns}
+          />
+        ))}
       </div>
     </div>
-        </>
-    )
-}
-export default Board;
+  );
+};
+
+export default Board; 
