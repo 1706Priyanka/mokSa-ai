@@ -1,1 +1,87 @@
 
+.column {
+    background-color: #ebecf0;
+    border-radius: 8px;
+    min-width: 300px;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 100px);
+  }
+  
+  .column-header {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .column-header h3 {
+    margin: 0;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .column-header input {
+    font-size: 16px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 200px;
+  }
+  
+  .delete-column-btn {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 5px;
+  }
+  
+  .delete-column-btn:hover {
+    color: #ff4444;
+  }
+  
+  .tasks-container {
+    padding: 15px;
+    overflow-y: auto;
+    flex-grow: 1;
+  }
+  
+  .add-task-form {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .add-task-form input,
+  .add-task-form textarea {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .add-task-form textarea {
+    resize: vertical;
+    min-height: 60px;
+  }
+  
+  .add-task-form button {
+    padding: 8px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+  
+  .add-task-form button:hover {
+    background-color: #45a049;
+  } 
